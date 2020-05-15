@@ -1,0 +1,74 @@
+
+Username: MMF_2_6
+
+Dropping user
+old:DROP USER &USERNAME CASCADE
+new:DROP USER MMF_2_6 CASCADE
+
+Error starting at line : 2 File @ D:\Алина\Базы данных\EPAM-DB\MMF_2_6\drop\drop_user.sql
+In command -
+DROP USER &USERNAME CASCADE
+Error report -
+ORA-01031: ?????????? ????????????
+01031. 00000 -  "insufficient privileges"
+*Cause:    An attempt was made to perform a database operation without
+           the necessary privileges.
+*Action:   Ask your database administrator or designated security
+           administrator to grant you the necessary privileges
+Elapsed: 00:00:00.020
+Elapsed: 00:00:00.028
+
+Dropping tablespace
+old:DECLARE
+    d_sql VARCHAR2(4000);
+	i_sql VARCHAR2(4000);
+    d_tbs_name VARCHAR2(500) := '&&USER_NAME'||'_DATA';
+	i_tbs_name VARCHAR2(500) := '&&USER_NAME'||'_INDEX';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Dropping data tablespace "'||d_tbs_name||'" and index "'||i_tbs_name||'"');
+    d_sql:='DROP TABLESPACE '||d_tbs_name||' INCLUDING CONTENTS AND DATAFILES';
+	i_sql:='DROP TABLESPACE '||i_tbs_name||' INCLUDING CONTENTS AND DATAFILES';
+    EXECUTE IMMEDIATE d_sql;
+    EXECUTE IMMEDIATE i_sql;
+END;
+
+new:DECLARE
+    d_sql VARCHAR2(4000);
+	i_sql VARCHAR2(4000);
+    d_tbs_name VARCHAR2(500) := 'MMF_2_6'||'_DATA';
+	i_tbs_name VARCHAR2(500) := 'MMF_2_6'||'_INDEX';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Dropping data tablespace "'||d_tbs_name||'" and index "'||i_tbs_name||'"');
+    d_sql:='DROP TABLESPACE '||d_tbs_name||' INCLUDING CONTENTS AND DATAFILES';
+	i_sql:='DROP TABLESPACE '||i_tbs_name||' INCLUDING CONTENTS AND DATAFILES';
+    EXECUTE IMMEDIATE d_sql;
+    EXECUTE IMMEDIATE i_sql;
+END;
+Dropping data tablespace "MMF_2_6_DATA" and index "MMF_2_6_INDEX"
+
+
+Error starting at line : 4 File @ D:\Алина\Базы данных\EPAM-DB\MMF_2_6\drop\drop_tablespace.sql
+In command -
+DECLARE
+    d_sql VARCHAR2(4000);
+	i_sql VARCHAR2(4000);
+    d_tbs_name VARCHAR2(500) := '&&USER_NAME'||'_DATA';
+	i_tbs_name VARCHAR2(500) := '&&USER_NAME'||'_INDEX';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Dropping data tablespace "'||d_tbs_name||'" and index "'||i_tbs_name||'"');
+    d_sql:='DROP TABLESPACE '||d_tbs_name||' INCLUDING CONTENTS AND DATAFILES';
+	i_sql:='DROP TABLESPACE '||i_tbs_name||' INCLUDING CONTENTS AND DATAFILES';
+    EXECUTE IMMEDIATE d_sql;
+    EXECUTE IMMEDIATE i_sql;
+END;
+Error report -
+ORA-01031: ?????????? ????????????
+ORA-06512: ??  line 10
+01031. 00000 -  "insufficient privileges"
+*Cause:    An attempt was made to perform a database operation without
+           the necessary privileges.
+*Action:   Ask your database administrator or designated security
+           administrator to grant you the necessary privileges
+Elapsed: 00:00:00.039
+Elapsed: 00:00:00.051
+

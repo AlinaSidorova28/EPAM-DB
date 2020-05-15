@@ -1,3 +1,76 @@
 
+Username: MMF_2_6
+Path: D:\oracle\app\Asus\oradata\ORCL\DATAFILE
 
-Substitution cancelled
+Calling data and index creation
+old:DECLARE
+    d_sql VARCHAR2(4000);
+    d_tbs_name VARCHAR2(500):= '&&USER_NAME' ||'_DATA';
+    d_file_name VARCHAR2(500):= '&&TBSP_LOCATION' || '\' ||d_tbs_name||'.dbf';
+    i_tbs_name VARCHAR2(500) := '&&USER_NAME'||'_INDEX';
+    i_file_name VARCHAR2(500) := '&&TBSP_LOCATION'||'\'||i_tbs_name||'.dbf';
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Creating new data tablespace "'||d_tbs_name||'" and index "'||i_tbs_name||'"');
+    d_sql:='CREATE SMALLFILE TABLESPACE '||d_tbs_name||' DATAFILE '''||d_file_name||''' SIZE 10M AUTOEXTEND ON NEXT 10M MAXSIZE 1G EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO';
+    DBMS_OUTPUT.PUT_LINE('Script to create tablespace: '||d_sql);
+    EXECUTE IMMEDIATE d_sql;
+    d_sql:='CREATE SMALLFILE TABLESPACE '||i_tbs_name||' DATAFILE '''||i_file_name||''' SIZE 10M AUTOEXTEND ON NEXT 10M MAXSIZE 1G EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO';    
+    DBMS_OUTPUT.PUT_LINE('Script to create index: '||d_sql);
+    EXECUTE IMMEDIATE d_sql;
+END;
+
+new:DECLARE
+    d_sql VARCHAR2(4000);
+    d_tbs_name VARCHAR2(500):= 'MMF_2_6' ||'_DATA';
+    d_file_name VARCHAR2(500):= 'D:\oracle\app\Asus\oradata\ORCL\DATAFILE' || '\' ||d_tbs_name||'.dbf';
+    i_tbs_name VARCHAR2(500) := 'MMF_2_6'||'_INDEX';
+    i_file_name VARCHAR2(500) := 'D:\oracle\app\Asus\oradata\ORCL\DATAFILE'||'\'||i_tbs_name||'.dbf';
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Creating new data tablespace "'||d_tbs_name||'" and index "'||i_tbs_name||'"');
+    d_sql:='CREATE SMALLFILE TABLESPACE '||d_tbs_name||' DATAFILE '''||d_file_name||''' SIZE 10M AUTOEXTEND ON NEXT 10M MAXSIZE 1G EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO';
+    DBMS_OUTPUT.PUT_LINE('Script to create tablespace: '||d_sql);
+    EXECUTE IMMEDIATE d_sql;
+    d_sql:='CREATE SMALLFILE TABLESPACE '||i_tbs_name||' DATAFILE '''||i_file_name||''' SIZE 10M AUTOEXTEND ON NEXT 10M MAXSIZE 1G EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO';    
+    DBMS_OUTPUT.PUT_LINE('Script to create index: '||d_sql);
+    EXECUTE IMMEDIATE d_sql;
+END;
+Creating new data tablespace "MMF_2_6_DATA" and index "MMF_2_6_INDEX"
+Script to create tablespace: CREATE SMALLFILE TABLESPACE MMF_2_6_DATA DATAFILE 'D:\oracle\app\Asus\oradata\ORCL\DATAFILE\MMF_2_6_DATA.dbf' SIZE 10M AUTOEXTEND ON NEXT 10M MAXSIZE 1G EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO
+Script to create index: CREATE SMALLFILE TABLESPACE MMF_2_6_INDEX DATAFILE 'D:\oracle\app\Asus\oradata\ORCL\DATAFILE\MMF_2_6_INDEX.dbf' SIZE 10M AUTOEXTEND ON NEXT 10M MAXSIZE 1G EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO
+
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.383
+Elapsed: 00:00:00.397
+
+Calling user creation
+old:CREATE USER &USERNAME IDENTIFIED BY oracle
+new:CREATE USER MMF_2_6 IDENTIFIED BY oracle
+
+Error starting at line : 4 File @ D:\Алина\Базы данных\EPAM-DB\MMF_2_6\install\create_user.sql
+In command -
+CREATE USER &USERNAME IDENTIFIED BY oracle
+Error report -
+ORA-01920: ??? ???????????? 'MMF_2_6' ???????????? ????? ??????? ???????????? ??? ????
+01920. 00000 -  "user name '%s' conflicts with another user or role name"
+*Cause:    There is already a user or role with that name.
+*Action:   Specify a different user name.
+Elapsed: 00:00:00.026
+Elapsed: 00:00:00.031
+
+Giving grants to user
+old:GRANT connect, resource, CREATE session, CREATE any table, CREATE any view, CREATE type,
+      CREATE procedure, CREATE synonym, create trigger, create sequence, create materialized view, query rewrite
+      TO &USER_NAME
+new:GRANT connect, resource, CREATE session, CREATE any table, CREATE any view, CREATE type,
+      CREATE procedure, CREATE synonym, create trigger, create sequence, create materialized view, query rewrite
+      TO MMF_2_6
+
+Grant succeeded.
+
+Elapsed: 00:00:00.050
+Elapsed: 00:00:00.067
+
