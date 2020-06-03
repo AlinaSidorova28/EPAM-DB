@@ -8,7 +8,11 @@ SET SERVEROUTPUT ON
 
 PROMPT Username: &&USER_NAME
 connect &&USER_NAME/oracle 
--- there are no upgrade scripts for now
+
+PROMPT 
+PROMPT Create tables, insert values and create all data view
+@upgrade001/main.sql &&USER_NAME
+PROMPT
 
 SET SERVEROUTPUT OFF
 

@@ -43,23 +43,29 @@ Script to create index: CREATE SMALLFILE TABLESPACE MMF_2_6_INDEX DATAFILE 'D:\o
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.383
-Elapsed: 00:00:00.397
+Elapsed: 00:00:00.309
+Elapsed: 00:00:00.319
 
 Calling user creation
 old:CREATE USER &USERNAME IDENTIFIED BY oracle
+       DEFAULT TABLESPACE MMF_2_6_DATA
+       QUOTA UNLIMITED ON MMF_2_6_DATA
+       QUOTA UNLIMITED ON MMF_2_6_INDEX
 new:CREATE USER MMF_2_6 IDENTIFIED BY oracle
+       DEFAULT TABLESPACE MMF_2_6_DATA
+       QUOTA UNLIMITED ON MMF_2_6_DATA
+       QUOTA UNLIMITED ON MMF_2_6_INDEX
 
-Error starting at line : 4 File @ D:\Алина\Базы данных\EPAM-DB\MMF_2_6\install\create_user.sql
-In command -
-CREATE USER &USERNAME IDENTIFIED BY oracle
-Error report -
-ORA-01920: ??? ???????????? 'MMF_2_6' ???????????? ????? ??????? ???????????? ??? ????
-01920. 00000 -  "user name '%s' conflicts with another user or role name"
-*Cause:    There is already a user or role with that name.
-*Action:   Specify a different user name.
-Elapsed: 00:00:00.026
-Elapsed: 00:00:00.031
+User MMF_2_6 created.
+
+Elapsed: 00:00:00.122
+old:ALTER USER &&USERNAME QUOTA UNLIMITED ON MMF_2_6_DATA 
+new:ALTER USER MMF_2_6 QUOTA UNLIMITED ON MMF_2_6_DATA
+
+User MMF_2_6 altered.
+
+Elapsed: 00:00:00.065
+Elapsed: 00:00:00.072
 
 Giving grants to user
 old:GRANT connect, resource, CREATE session, CREATE any table, CREATE any view, CREATE type,
@@ -71,6 +77,6 @@ new:GRANT connect, resource, CREATE session, CREATE any table, CREATE any view, 
 
 Grant succeeded.
 
-Elapsed: 00:00:00.050
-Elapsed: 00:00:00.067
+Elapsed: 00:00:00.019
+Elapsed: 00:00:00.026
 
